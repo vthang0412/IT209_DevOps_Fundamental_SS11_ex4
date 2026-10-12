@@ -1,4 +1,4 @@
-name: Spring Boot REST API CI
+name: Spring Boot REST API CI EX4
 
 on:
   push:
@@ -47,6 +47,13 @@ jobs:
           java-version: '21'
           cache: gradle
           cache-dependency-path: student-api/*.gradle*
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
 
       - name: Check and Compile
         run: |
